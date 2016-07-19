@@ -116,3 +116,15 @@ Atomの振る舞いを拡張したいのであれば、パッケージは単一�
 + activate(state): このoptionalなメソッドはパッケージがactivateされた時に呼ばれます。モジュールにserialize()が実装されているなら、最後にウィンドウがserializeされた時のstateデータが渡されます。パッケージが開始する時（例えばDOM要素をセットアップしたり、イベントのバインディングをしたり）の初期化作業に使ってください。
 + serialize(): このoptionalなメソッドはウィンドウが閉じられる時に呼ばれ、コンポーネントの状態を表現するJSONデータを返却します。ウィンドウが後に復元されたら、返却したデータがモジュールのactivateメソッドに渡され、so you can restore your view to where the user left off.
 + deactivate(): このoptionalなメソッドはウィンドウが閉じられた時に呼ばれます。パッケージがファイルを監視してたり、他の方法で外部リソースを確保しているなら、ここで解放されます。If you're just subscribing to things on window, you don't need to worry because that's getting torn down anyway.
+
+
+
+### Style Sheets
+
+パッケージのスタイルシートは「styles」ディレクトリに配置します。このディレクトリ内のスタイルシートは読み込まれ、パッケージがactivateした時にDOMにattach（？）されます。スタイルシートはCSSかLESSで記述できますが、Lessが推奨となっています。
+
+理想を言うと、you won't need much in the way of styling.Atomは、パッケージのためにAtomのデザインに合う色とUIエレメントの両方を定義している基本的なコンポーネントセットを提供しています。Atomの全てのUIコンポーネントはスタイルガイドで確認できます。（「Cmd+Shift+P」でコマンドパレットを開き、「styleguide」を検索するか「Cmd+Ctrl+Shift+G」を押してください。）
+
+If you do need special styling, try to keep only structural styles in the package style sheets.色やサイズを指定しなければならないのであれば、アクティブなテーマの「ui-variables.less」より取ってくるべきです。
+
+「package.json」内の「styleSheets」配列は、配列に指定されたファイルの順番通りにスタイルシートが読み込まれます。指定されていなければスタイルシートはアルファベット順に読み込まれます。
