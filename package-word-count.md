@@ -128,3 +128,68 @@ Atomの振る舞いを拡張したいのであれば、パッケージは単一�
 If you do need special styling, try to keep only structural styles in the package style sheets.色やサイズを指定しなければならないのであれば、アクティブなテーマの`ui-variables.less`より取ってくるべきです。
 
 `package.json`内の`styleSheets`配列は、配列に指定されたファイルの順番通りにスタイルシートが読み込まれます。指定されていなければスタイルシートはアルファベット順に読み込まれます。
+
+
+
+
+
+### Menus
+
+
+Menusはサブディレクトリ`menus`に配置します。This defines menu elements like what pops up when you right click a context-menu or would go in the application menu to trigger functionality in your plugin.（おそらく「プラグインの機能を実行するためにメニューを右クリックした際に表示されるポップアップに配置したり、アプリケーションメニューにいれたりといったようメニューの要素を定義する」のような意味だがイマイチ合ってるのかわからない）
+
+通常、全てのmenusはアルファベット順に読み込まれます。`package.json`に`menus`配列を記述することで読み込み順を指定できます。
+
+
+#### Application Menu
+
+特定のUI（specific elementのelementをUIと意訳）に結びついていないあなたのパッケージの共通のアクションのためには、`Packages`メニュー下にapplication menu itemを生成することが推奨されています。
+
+
+生成された`menus/your-name-word-count.cson`ファイルを見ると、以下の様な部分を確認できるかと思う。
+
+```
+'menu': [
+  {
+    'label': 'Packages'
+    'submenu': [
+      'label': 'Word Count'
+      'submenu': [
+        {
+          'label': 'Toggle'
+          'command': 'your-name-word-count:toggle'
+        }
+      ]
+    ]
+  }
+]
+```
+
+ここでは、「Package」メニュー内の「Your Name Word Count」グループ下に「Toggle」メニューを配置している。
+
+
+「Toggle」メニューを選択すると、`your-name-word-count:toggle`コマンド（このコマンドに関しては少し後に説明します）が実行される。
+
+指定したmenuオブジェクトは、他のパッケージで指定されたmenuオブジェクトと読み込まれた順番にマージされます。
+
+
+#### Context Menu
+
+インタフェースの特定の部分と結びついているようなコマンドのためにはcontext menu itemを指定することが推奨されています。`menus/your-name-word-count.cson`ファイルを見ると、以下のような自動生成された部分を確認できるはずです。
+
+
+```
+'context-menu':
+  'atom-text-editor': [
+    {
+      'label': 'Toggle Word Count'
+      'command': 'your-name-word-count:toggle'
+    }
+  ]
+```
+
+ここでは「Toggle Word Count」メニューオプションを、Atomのpane内を右クリックした際に表示されるメニューに追加しています。
+
+「Toggle Word Count」をクリックすると、ソースコード内の`your-name-word-count:toggle`メソッドが再び実行されます。
+
+コンテキストメニューは
