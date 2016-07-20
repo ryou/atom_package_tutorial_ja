@@ -8,10 +8,10 @@
 パッケージを書き始める一番簡単な方法はAtomに最初から入っているPackage Generatorを使う方法です。
 As you might expect by now, this generator is itself a separate package implemented in package-generator.
 
-コマンドパレットを呼び出して、"Generate Package"を検索することでPackage Generatorを実行出来ます。あなたの新しいプロジェクトの名前を尋ねるダイアログが出ます。「your-name-word-count」と命名してください。そうすればAtomはディレクトリーを生成し、スケルトンプロジェクトで埋め、「~/.atom/packages」ディレクトリーにリンクさせ、次回Atomを起動した際に読み込まれます。
+コマンドパレットを呼び出して、"Generate Package"を検索することでPackage Generatorを実行出来ます。あなたの新しいプロジェクトの名前を尋ねるダイアログが出ます。`your-name-word-count`と命名してください。そうすればAtomはディレクトリーを生成し、スケルトンプロジェクトで埋め、`~/.atom/packages`ディレクトリーにリンクさせ、次回Atomを起動した際に読み込まれます。
 
 
-Note: パッケージが読み込まれないといった状況に遭遇するかもしれません。atom.ioにホスティングされているパッケージと同じ名前(例えば、"wordcount"と"word-count")を新しいパッケージが使用していると、期待しているように読み込まれません。前述した「your-name-word-count」という名前を使うようにという指示に従ったのであれば問題ありません。
+Note: パッケージが読み込まれないといった状況に遭遇するかもしれません。atom.ioにホスティングされているパッケージと同じ名前(例えば、"wordcount"と"word-count")を新しいパッケージが使用していると、期待しているように読み込まれません。前述した`your-name-word-count`という名前を使うようにという指示に従ったのであれば問題ありません。
 
 Atomがパッケージを構成する多くのファイルを生成したと思います。
 パッケージがどのような構造になっているのか知るためにそれらを見てください。
@@ -34,28 +34,28 @@ my-package/
 ```
 
 
-すべてのパッケージが上記のディレクトリーを必要とするわけではありませんし、Package Generatorは「snippets」と「grammars」を生成しません。Let's see what some of these are so we can start messing with them.
+すべてのパッケージが上記のディレクトリーを必要とするわけではありませんし、Package Generatorは`snippets`と`grammars`を生成しません。Let's see what some of these are so we can start messing with them.
 
 
 ### package.json
 
-Node modulesと似て、Atomのパッケージはトップレベルディレクトリに「package.json」ファイルが存在しています。このファイルは、mainモジュールのパスやライブラリの依存関係、リソースの読み込み順のようなパッケージのメタデータを含んでいます。（and manifests specifying the order in which its resources should be loaded.の訳が怪しい）
+Node modulesと似て、Atomのパッケージはトップレベルディレクトリに`package.json`ファイルが存在しています。このファイルは、mainモジュールのパスやライブラリの依存関係、リソースの読み込み順のようなパッケージのメタデータを含んでいます。（and manifests specifying the order in which its resources should be loaded.の訳が怪しい）
 
 
-Nodeの「package.json」のキーの一部が利用できるのに加えて、Atomの「package.json」は独自のキーを持っています。
+Nodeの`package.json`のキーの一部が利用できるのに加えて、Atomの`package.json`は独自のキーを持っています。
 
 
-+ main: パッケージのエントリポイントとなるCoffeeScriptファイルのパス。これが無い場合、Atomは「index.coffee」もしくは「index.js」を見に行きます。
-+ styles: パッケージが読み込む必要があるスタイルシートの順番を定義する文字列配列です。これが定義されていない場合、「styles」ディレクトリーのスタイルシートがアルファベット順に読み込まれます。
-+ keymap: パッケージが読み込む必要があるキーマッピングの順番を定義する文字列配列です。これが定義されていない場合、「keymaps」ディレクトリのマッピングがアルファベット順に読み込まれます。
-+ menus: パッケージが読み込む必要があるメニューマッピングの順番を定義する文字列配列です。これが定義されていない場合、「menus」ディレクトリのマッピングがアルファベット順に読み込まれます。
-+ snippets: パッケージが読み込む必要があるスニペットの順番を定義する文字列配列です。これが定義されていない場合、「snippets」ディレクトリ内のスニペットがアルファベット順に読み込まれます。
++ main: パッケージのエントリポイントとなるCoffeeScriptファイルのパス。これが無い場合、Atomは`index.coffee`もしくは`index.js`を見に行きます。
++ styles: パッケージが読み込む必要があるスタイルシートの順番を定義する文字列配列です。これが定義されていない場合、`styles`ディレクトリーのスタイルシートがアルファベット順に読み込まれます。
++ keymap: パッケージが読み込む必要があるキーマッピングの順番を定義する文字列配列です。これが定義されていない場合、`keymaps`ディレクトリのマッピングがアルファベット順に読み込まれます。
++ menus: パッケージが読み込む必要があるメニューマッピングの順番を定義する文字列配列です。これが定義されていない場合、`menus`ディレクトリのマッピングがアルファベット順に読み込まれます。
++ snippets: パッケージが読み込む必要があるスニペットの順番を定義する文字列配列です。これが定義されていない場合、`snippets`ディレクトリ内のスニペットがアルファベット順に読み込まれます。
 + activationCommands: パッケージのactivationのトリガーとなるコマンドを定義するオブジェクトです。キーはCSSセレクター、valueはコマンドを定義する文字列配列です。パッケージはCSSセレクターで定義された範囲（associated scope?）で何かイベントがトリガーされるまで読み込まれません。
-+ activationHooks: パッケージのactivationのトリガーとなるフックを定義する文字列配列です。このフックがトリガーされるまでパッケージは読み込まれません。現在、唯一のactivation hookは「language-package-name:grammar-used」（例えば「language-javascript:grammar-used」）のみです。
++ activationHooks: パッケージのactivationのトリガーとなるフックを定義する文字列配列です。このフックがトリガーされるまでパッケージは読み込まれません。現在、唯一のactivation hookは`language-package-name:grammar-used`（例えば`language-javascript:grammar-used`）のみです。
 
 
 
-生成された「package.json」以下のようになっているはずです。
+生成された`package.json`以下のようになっているはずです。
 
 ```
 {
@@ -104,9 +104,9 @@ Warning: リポジトリのURLを更新することを忘れないようにし�
 ### Source Code
 
 Atomの振る舞いを拡張したいのであれば、パッケージは単一のトップレベルモジュールを含むべきです。which you export from whichever file is indicated by the main key in your package.json file.(?)
-生成したパッケージにおいて、mainキーが指し示すファイルは「lib/wordcount.coffee」です。
-他のコードは「lib」ディレクトリに配置されるべきで、トップレベルファイルからrequireされます。
-「package.json」にmainキーが指定されていない場合、メインエントリポイントとして「index.coffee」か「index.js」を探します。
+生成したパッケージにおいて、mainキーが指し示すファイルは`lib/wordcount.coffee`です。
+他のコードは`lib`ディレクトリに配置されるべきで、トップレベルファイルからrequireされます。
+`package.json`にmainキーが指定されていない場合、メインエントリポイントとして`index.coffee`か`index.js`を探します。
 
 パッケージのトップレベルモジュールは、Atomへの拡張機能のライフサイクルを管理するシングルトンオブジェクトです。
 たとえパッケージが１０の異なるビューを生成し、DOMの異なる部分へ追加されたとしても、それらは全てトップレベルオブジェクトで管理されます。
@@ -121,10 +121,10 @@ Atomの振る舞いを拡張したいのであれば、パッケージは単一�
 
 ### Style Sheets
 
-パッケージのスタイルシートは「styles」ディレクトリに配置します。このディレクトリ内のスタイルシートは読み込まれ、パッケージがactivateした時にDOMにattach（？）されます。スタイルシートはCSSかLESSで記述できますが、Lessが推奨となっています。
+パッケージのスタイルシートは`styles`ディレクトリに配置します。このディレクトリ内のスタイルシートは読み込まれ、パッケージがactivateした時にDOMにattach（？）されます。スタイルシートはCSSかLESSで記述できますが、Lessが推奨となっています。
 
-理想を言うと、you won't need much in the way of styling.Atomは、パッケージのためにAtomのデザインに合う色とUIエレメントの両方を定義している基本的なコンポーネントセットを提供しています。Atomの全てのUIコンポーネントはスタイルガイドで確認できます。（「Cmd+Shift+P」でコマンドパレットを開き、「styleguide」を検索するか「Cmd+Ctrl+Shift+G」を押してください。）
+理想を言うと、you won't need much in the way of styling.Atomは、パッケージのためにAtomのデザインに合う色とUIエレメントの両方を定義している基本的なコンポーネントセットを提供しています。Atomの全てのUIコンポーネントはスタイルガイドで確認できます。（`Cmd+Shift+P`でコマンドパレットを開き、`styleguide`を検索するか`Cmd+Ctrl+Shift+G`を押してください。）
 
-If you do need special styling, try to keep only structural styles in the package style sheets.色やサイズを指定しなければならないのであれば、アクティブなテーマの「ui-variables.less」より取ってくるべきです。
+If you do need special styling, try to keep only structural styles in the package style sheets.色やサイズを指定しなければならないのであれば、アクティブなテーマの`ui-variables.less`より取ってくるべきです。
 
-「package.json」内の「styleSheets」配列は、配列に指定されたファイルの順番通りにスタイルシートが読み込まれます。指定されていなければスタイルシートはアルファベット順に読み込まれます。
+`package.json`内の`styleSheets`配列は、配列に指定されたファイルの順番通りにスタイルシートが読み込まれます。指定されていなければスタイルシートはアルファベット順に読み込まれます。
